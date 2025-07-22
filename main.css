@@ -4,11 +4,13 @@
   box-sizing: border-box;
 }
 
+body {
+    background: url(img/todo2.png) no-repeat fixed center ;
+    background-size: cover;
+}
+
 .todo {
   min-height: 100vh;
-  background-color: rgb(37, 209, 46);
-  background-image: url('/img/todo2.png');
-  background-size: cover;
   font-family: sans-serif;
   padding: 20px;
 }
@@ -52,7 +54,7 @@
 .todo__btn {
   border: none;
   outline: none;
-  padding: 16px 30px;
+  padding: 18px 30px;
   cursor: pointer;
   border-radius: 30px;
   font-size: 16px;
