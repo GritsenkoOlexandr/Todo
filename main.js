@@ -1,51 +1,56 @@
 
-const inp=document.querySelector('.todoinp');
-const inpbtn=document.querySelector('.todoinpbtn');
-const out=document.querySelector('.outblock');
-const fitem=document.querySelector('.firstitem');
-const item=document.querySelectorAll('.todoitem');
-const del=document.querySelectorAll('.todobtn');
-const ft=document.querySelector('.ftext');
+const todoInput = document.querySelector('.todo__input');
+const todoBtn = document.querySelector('.todo__btn');
+const todoList = document.querySelector('.todo__list');
 
-let task=[];
+todoBtn.addEventListener('click', () => {
+  addTask();
+})
 
-/*
-  if(localStorage.getItem('todo')!==undefined) {
-    task=JSON.parse(localStorage.getItem('todo'));
-  }
-*/
-console.log(task);
-
-inpbtn.addEventListener('click', ()=> {
-  if (inp.value==='') {
-    ft.innerHTML=' Введите задачу!!!'
-    return;
+function addTask() {
+  if (todoInput.value === '') {
+    alert('input task please');
   } else {
-    task.push(inp.value);
-    inp.value='';
-    console.log(task);
-    textout(task);
-    fitem.style.display='none';
+    let li = document.createElement('li');
+    li.innerHTML = todoInput.value;
+    todoList.appendChild(li);
+    let span = document.createElement('span');
+    span.innerHTML = '\u00d7';
+    li.appendChild(span);
 
+  } 
+
+  todoInput.value = '';
+  SaveData();
+}
+
+todoList.addEventListener('click', (e) => {
+  if (e.target.tagName === 'LI') {
+    e.target.classList.toggle('checked');
+    SaveData();
+  } else if (e.target.tagName === 'SPAN') {
+    e.target.parentElement.remove();
+    SaveData();
   }
+  
 });
 
-const textout=(arr)=> {
-  let textarr='';
-  for (let i=0; i<arr.length; i++) {
-    textarr+=`<div class="todoitem" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <div class="todotext">
-      <p> ${arr[i]}</p>
-    </div>
-    <div class="todopanel">
-      <button class="todobtn">X</button>
-    </div>
-  </div>`;
- 
-  }
-  out.innerHTML=textarr;
-  localStorage.setItem('todo', JSON.stringify(arr));
+function SaveData() {
+  localStorage.setItem('data', todoList.innerHTML);
 }
+
+function ShowData() {
+  todoList.innerHTML = localStorage.getItem('data');
+}
+
+ShowData();
+
+
+
+
+
+
+
 
 
 
